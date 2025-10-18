@@ -2,11 +2,12 @@ import React, { useContext,useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
+import RelatedProduct from '../components/relatedProduct';
 
 function Product() {
 
   const {productId }= useParams();
-  const {products,currency} = useContext(ShopContext);
+  const {products,currency,addToCart} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image,setImage]= useState('');
   const [size,setSize]= useState('');
@@ -71,7 +72,7 @@ function Product() {
               }
             </div>
           </div>
-          <button className='bg-black text-white px-8 py-3 text-sm hover:bg-gray-800 active:bg-gray-700 transition duration-200'>
+          <button onClick={()=>addToCart(productData._id,size)} className='bg-black text-white px-8 py-3 text-sm hover:bg-gray-800 active:bg-gray-700 transition duration-200'>
               Add to Cart
           </button>
           <hr className='mt-8 sm:w-4/5 border-gray-300'/>
@@ -82,7 +83,20 @@ function Product() {
           </div>
         </div>
       </div>
-      
+      {/* ---------description section---------- */}
+      <div className='mt-20'>
+        <div className='flex'>
+          <b className='border px-5 py-3 text-sm'>Description</b>
+          <p className='border px-5 py-3 text-sm'> Reviews (122)</p>
+        </div>
+        <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
+            <p>Discover a wide range of high-quality products at amazing prices. From fashion to electronics, we bring you the best shopping experience with fast delivery and excellent customer service. Shop now and enjoy exclusive deals every day!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt incidunt dolore delectus, voluptatum inventore perferendis velit atque tempora illum, autem maxime accusantium. Est ullam ducimus odit animi, enim doloribus tempora voluptates soluta. Illum voluptates, aperiam impedit sint rem nulla veniam quo facilis eum deserunt totam in dolorum praesentium iusto earum sed porro. Voluptates vel blanditiis obcaecati unde accusamus dignissimos aspernatur vero hic impedit error laboriosam quis dolor sapiente quisquam esse, nihil amet deleniti magnam qui enim! Aspernatur maxime illum tempora eligendi enim ullam rerum beatae vitae, unde qui tempore illo, sint autem explicabo doloremque ad culpa eaque voluptates quaerat et magnam hic. Veritatis amet nisi dolorum debitis? Velit assumenda excepturi eveniet? Expedita asperiores vitae exercitationem porro delectus omnis accusantium ipsa suscipit sit quod dolorem reprehenderit consequuntur beatae officia, illo quos velit, minus architecto eveniet similique! Id cumque vitae quasi eos blanditiis, quae quaerat, ullam qui dignissimos, soluta rerum in eum.</p>
+        </div>
+      </div>
+      {/* display products */}
+      <RelatedProduct category={productData.category} subCategory={productData.subCategory}/>
+
     </div>
   ): <div className='opacity-0'></div>
 }
