@@ -52,11 +52,38 @@ const ShopContextProvider = (props) => {
       setCartItems(cartData);
   }
 
-  
+  // const getCartAmount=()=>{
+  //   let totalAmount=0;
+  //   for(const itemId in cartItems){
+  //     const itemInfo=products.find((product)=>product_.id===itemId);
+  //     for(const item in cartItems[items]){
+  //       try {
+  //         if(cartItems[items][item]>0){
+  //           totalAmount+=cartItems[items][item]*itemInfo.price;
+  //         }
+  //       } catch (error) {
+          
+  //       }
+  //     }
+  //   }
+  //   return totalAmount;
+  // };
 
-  // useEffect(() => {
-  //   localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  // }, [cartItems]);
+  const getCartAmount = () => {
+    let totalAmount = 0;
+    for (const itemId in cartItems) {
+      const itemInfo = products.find((product) => product._id === itemId);
+      if (itemInfo) {
+        for (const size in cartItems[itemId]) {
+          if (cartItems[itemId][size] > 0) {
+            totalAmount += itemInfo.price * cartItems[itemId][size];
+          }
+        }
+      }
+    }
+    return totalAmount;
+  };
+  
 
   // Values to provide
   const value = {
@@ -70,7 +97,8 @@ const ShopContextProvider = (props) => {
     cartItems,
     addToCart,
     getCartCount,
-    updateQuantity
+    updateQuantity,
+    getCartAmount,
 
   };
 
