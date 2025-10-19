@@ -68,7 +68,14 @@ const ShopContextProvider = (props) => {
     return totalAmount;
   };
   
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cartItems");
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+    }
+  }, []);
 
+  
   // Values to provide
   const value = {
     products,
