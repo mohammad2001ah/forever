@@ -1,11 +1,19 @@
+// 
 import multer from "multer";
+import path from "path";
 
-const storage=multer.diskStorage({
-    filename: function (req, file, callback) {
-        callback(null ,file.originalname);
-    }
+// إعداد مكان التخزين + اسم الملف
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    // هيتخزن في مجلد "uploads" داخل المشروع
+    callback(null, path.join(process.cwd(), "uploads"));
+  },
+  filename: function (req, file, callback) {
+    callback(null, Date.now() + "-" + file.originalname);
+  }
 });
 
-const upload=multer({storage:storage});
+// إنشاء instance من multer
+const upload = multer({ storage });
 
 export default upload;

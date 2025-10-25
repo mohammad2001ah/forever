@@ -15,12 +15,12 @@ connectCloudinary();
 
 // middleware
 app.use(cors());
-app.use('/api/product',productRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
 //api endpoints
+app.use('/api/product',productRouter);
 app.use('/api/user',userRouter);
 
 
