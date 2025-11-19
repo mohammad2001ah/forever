@@ -1,6 +1,7 @@
 import express from "express";
 import { addProduct,removeProduct,singleProduct,listProduct } from '../controllers/productController.js';
 import upload from "../middleware/multer.js";
+import adminAuth from "../middleware/adminAuth.js";
 const router=express.Router();
 // route for add product
 
@@ -11,7 +12,7 @@ router.post("/test", upload.single("file"), (req, res) => {
 });
 
 
-router.post("/add",upload.fields([
+router.post("/add",adminAuth,upload.fields([
   {name:"image1",maxCount:1},
   {name:"image2",maxCount:1},
   {name:"image3",maxCount:1},
@@ -19,7 +20,7 @@ router.post("/add",upload.fields([
 // route for list of products
 router.get("/list",listProduct);
 // route for remove product
-router.post("/remove",removeProduct);
+router.post("/remove",adminAuth,removeProduct);
 // route for single product details
 router.get("/single/:id",singleProduct);
 
