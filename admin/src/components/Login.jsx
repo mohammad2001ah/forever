@@ -1,14 +1,22 @@
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
+import { backendUrl } from '../App';
+import { toast } from 'react-toastify';
 
-const Login = () => {
+const Login = (setToken) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const onSubmitHandler = async(e) => {
     try {
       e.preventDefault();
-      
+      const response = await axios.post(backendUrl +'/api/user/admin-login',{email,password});
+      if(response.data.success){
+          setToken(response.data.token);
+      }else{
+          toast.error("Invalid Credentials");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }
